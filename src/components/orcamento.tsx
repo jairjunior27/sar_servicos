@@ -26,7 +26,7 @@ export const Orcamento = ({
   valorDesconto,
 }: prop) => {
   const [numeroOrcamento, setNumeroOrcamento] = useState<number>(0);
-  let anoAtual = new Date().getFullYear();
+  const anoAtual = new Date().getFullYear();
   const subTotal = quantidade * valor;
   useEffect(() => {
     const ultimo = localStorage.getItem("ultimo");
@@ -73,17 +73,24 @@ export const Orcamento = ({
         <p className="text-xs">{formaDePagamento}</p>
       </div>
 
+      <p className="text-xs mt-4 font-bold">Data: {Formatdata(data)}</p>
 
-         <p className="text-xs mt-4 font-bold">Data: {Formatdata(data)}</p>
-    
-    
       <div className="mt-4 flex flex-col">
-        <span className="text-sm font-bold">Subtotal: {formatarMoeda(subTotal)} </span>
-        <span className="text-sm font-bold border-b">Desconto: {formatarMoeda(valorDesconto)} </span>
-        <span className="text-sm font-bold">Total: {formatarMoeda(subTotal - valorDesconto)} </span>
+        <span className="text-sm font-bold">
+          Subtotal: {formatarMoeda(subTotal)}{" "}
+        </span>
+        <span className="text-sm font-bold border-b">
+          Desconto: {formatarMoeda(valorDesconto)}{" "}
+        </span>
+        <span className="text-sm font-bold">
+          Total: {formatarMoeda(subTotal - valorDesconto)}{" "}
+        </span>
       </div>
 
-      <ButtomItem className="bg-yellow-400 p-2 rounded text-center font-bold text-gray-800 mt-12" label="Baixar pdf"/>
+      <ButtomItem
+        className="bg-yellow-400 p-2 rounded text-center font-bold text-gray-800 mt-12"
+        label="Baixar pdf"
+      />
     </div>
   );
 };
