@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { UserProvider } from "@/authContextProvider/authProvider";
+import { UsuarioProvider } from "@/contextProvider/userProvider";
 
 export const metadata: Metadata = {
   title: "Serviços Sar",
@@ -13,8 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>
-        <UserProvider>{children}</UserProvider>
+      <body className="">
+        <UsuarioProvider>
+       <div className=" flex flex-col">
+         {children}
+       </div>
+        </UsuarioProvider>
       </body>
     </html>
   );

@@ -9,23 +9,30 @@ const api = axios.create({
 });
 
 export const useApi = {
-  signin: async (email: string, password: string) => {
+  login: async (email: string, password: string) => {
     try {
       const response = await api.post<userLoginType>("/login", {
         email,
         password,
       });
-      return response.data;
+      if (response) {
+        return response.data;
+      }
     } catch (e) {
-      console.log("erro ao executar o login: ", e);
+      console.log("Erro ao executar o login", e);
     }
   },
 
-  validateTokenLogin: async (token: string) => {
+  validateToken: async (token: string) => {
+   
     try {
-        const headers = { Authorization: `Bearer ${token}` };
-      const response = await api.post<validaTokenLogin>("validatetoken", {headers})
-      return response.data
+       const headers = { Authorization: `Bearer ${token}` };
+    const response = await api.post<validaTokenLogin>("/validatetoken",{}, {
+      headers,
+    });
+      if (response) {
+        return response.data;
+      }
     } catch (e) {
       console.log("Erro ao validar token", e);
     }
