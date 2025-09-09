@@ -7,10 +7,10 @@ type prop ={
     className: string
     type?: string
      password?: boolean
-     value?: string
+     value?: string | number
      checked?: boolean
      placeholder?: string
-     onChange: (value: ChangeEvent<HTMLInputElement>) => void
+     onChange: (value: ChangeEvent<HTMLInputElement> ) => void
      icon?: IconDefinition
      clickIcon?: () => void
 }
@@ -22,7 +22,7 @@ const [showPassword, setShowPassword] = useState(false)
     <div className={className}>
       <input value={value} onChange={onChange}
       checked={checked}
-      type={password && !showPassword ? "password" : type}
+      type={password ? showPassword ? "text" : "password" : type}
        placeholder={placeholder} 
        className="w-full outline-0 px-2" />
       {icon && <FontAwesomeIcon icon={icon} onClick={clickIcon} />}

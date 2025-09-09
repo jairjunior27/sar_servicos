@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ListaSar } from "./listaSar";
-import { StorageLista } from "@/util/storageLista";
+import { StorageLista } from "@/util/storage";
 
 export const ListaItem = () => {
   const [nome, setNome] = useState("");

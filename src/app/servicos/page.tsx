@@ -3,9 +3,10 @@ import { AuthPrivate } from "@/components/authPivate";
 import { Header } from "@/components/header";
 import { InputItem } from "@/components/inputItem";
 import { ListaItem } from "@/components/itemLista";
+import { OrcamentoItem } from "@/components/orcamentoItem";
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
   const [selecionado, setSelecionado] = useState<string | null>(null);
 
   return (
@@ -32,7 +33,7 @@ export default function page() {
 
       <div className="mx-6">
         {selecionado === "lista" && <ListaItem/>}
-        {selecionado === "orçamento" && <div>Renderizando Orçamento...</div>}
+        {selecionado === "orçamento" && <OrcamentoItem/>}
         {selecionado === "contrato" && <div>Renderizando Contrato...</div>}
         {selecionado === "recibo" && <div>Renderizando Recibo...</div>}
        
