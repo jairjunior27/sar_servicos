@@ -2,6 +2,10 @@ import { Formatdata } from "@/util/formatedata";
 import { formatarMoeda } from "@/util/formatMoeda";
 import { useEffect, useState } from "react";
 import { ButtomItem } from "./buttonItem";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { OrcamentoPdf } from "./orcamentoPdf";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 type prop = {
   cliente: string;
@@ -25,18 +29,18 @@ export const Orcamento = ({
   data,
   valorDesconto,
 }: prop) => {
-  const [numeroOrcamento, setNumeroOrcamento] = useState<number>(0);
+ 
   const anoAtual = new Date().getFullYear();
   const subTotal = quantidade * valor;
-  useEffect(() => {
-    const ultimo = localStorage.getItem("ultimo");
-    const ultimoNumero = ultimo ? Number(ultimo) : 0;
-    setNumeroOrcamento(ultimoNumero + 1);
-  }, []);
+  const numero = localStorage.getItem("ultimo")
 
-  useEffect(() => {
-    localStorage.setItem("ultimo", numeroOrcamento.toString());
-  }, [numeroOrcamento]);
+
+
+  const handleOrcamento =() =>{
+  
+
+  }
+
   return (
     <div className="">
       <div className="border-b  flex flex-col">
@@ -45,7 +49,7 @@ export const Orcamento = ({
       </div>
       <h2 className="text-center my-3">
         Orçamento | N⁰{" "}
-        {numeroOrcamento < 100 ? `00${numeroOrcamento}` : numeroOrcamento} -{" "}
+        {Number(numero) < 100 ? `00${numero}` : numero} -{" "}
         {anoAtual}
       </h2>
       <p className="text-sm">
@@ -75,7 +79,7 @@ export const Orcamento = ({
 
       <p className="text-xs mt-4 font-bold">Data: {Formatdata(data)}</p>
 
-      <div className="mt-4 flex flex-col">
+      <div className="mt-10 flex flex-col items-end ">
         <span className="text-sm font-bold">
           Subtotal: {formatarMoeda(subTotal)}{" "}
         </span>
@@ -87,10 +91,22 @@ export const Orcamento = ({
         </span>
       </div>
 
-      <ButtomItem
-        className="bg-yellow-400 p-2 rounded text-center font-bold text-gray-800 mt-12"
-        label="Baixar pdf"
-      />
+      <div className="flex items-center  justify-center mt-10">
+       <p> Excluir Orçamento </p><FontAwesomeIcon icon={faTrash}/>
+      </div>
+      <PDFDownloadLink
+  document={<OrcamentoPdf checkImagem cliente={cliente} data={data} descricao={descricao} formaDePagamento={formaDePagamento} quantidade={quantidade}  servico={servico} telefone={telefone} valor={valor} valorDesconto={valorDesconto}/>}
+        fileName="orcamento.pdf"
+      >
+         {({ loading }) => (
+    <ButtomItem
+      className="w-full text-center bg-amber-400 p-2 rounded my-10 max-w-xl m-auto font-bold"
+      label={loading ? "Gerando PDF..." : "Baixar PDF"}
+    />
+  )}
+      </PDFDownloadLink>
+
+    
     </div>
   );
 };

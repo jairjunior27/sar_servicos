@@ -1,20 +1,26 @@
+import { listaType } from "@/type/lista";
 import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
 
 type prop = {
   nomeLista: string;
-  lista: string[];
+  lista: listaType[];
   tipo: string;
-  checkImagem: boolean;
+  checkImagem: string;
 };
 
 export const ListaSar = ({ lista, nomeLista, tipo, checkImagem }: prop) => {
   return (
     <Document>
       <Page size="A4" style={{ padding: 20 }}>
-        {checkImagem && (
+        {checkImagem === "Img Jc" ? (
           <Image
             src="/assets/logojc.png"
-            style={{ width:"100%", height: 170, }}
+            style={{ width: "100%", height: 170 }}
+          />
+        ) : (
+          <Image
+            src="/assets/sistemaSar.png"
+            style={{ width: "100%", height: 170 }}
           />
         )}
         <View>
@@ -33,10 +39,12 @@ export const ListaSar = ({ lista, nomeLista, tipo, checkImagem }: prop) => {
           {tipo === "numerado"
             ? lista.map((item, index) => (
                 <Text key={index}>
-                  {index + 1 < 10 ? `0${index + 1}` : index + 1}. {item}
+                  {index + 1 < 10 ? `0${index + 1}` : index + 1}. {item.name}
                 </Text>
               ))
-            : lista.map((item, index) => <Text key={index}>• {item}</Text>)}
+            : lista.map((item, index) => (
+                <Text key={index}>• {item.name}</Text>
+              ))}
         </View>
         <Text
           render={({ pageNumber, totalPages }) => `${pageNumber}/${totalPages}`}

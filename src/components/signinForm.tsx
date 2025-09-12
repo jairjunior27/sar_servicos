@@ -12,28 +12,34 @@ export const SigninForm = () => {
   const [mensagem, setMensagem] = useState("");
   const userAuth = useContext(UsuarioContext);
   const route = useRouter();
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setMensagem("");
+      setEmail("");
+      setPassword("");
+    }, 2000);
 
-  useEffect(()=>{
-     const time = setTimeout(() => {
-      setMensagem("")
-      setEmail("")
-      setPassword("")
-     },2000);
-
-     return () => clearTimeout(time)
-  },[mensagem])
+    return () => clearTimeout(time);
+  }, [mensagem]);
 
   const handleButton = async () => {
     if (!email || !password) {
       return setMensagem("Favor preencher todos os campos");
     }
+
+      setLoading(true);
     const response = await userAuth?.signin(email, password);
     if (response) {
-       route.push("/servicos");
+    
+      route.push("/servicos");
+      setLoading(false);
     } else {
+
       setMensagem("Usuario não existe !");
-      return
+       setLoading(false);
+      return;
     }
   };
 
@@ -52,6 +58,7 @@ export const SigninForm = () => {
         placeholder="Digite sua senha"
         password
       />
+      {loading && <div className="text-center mt-2">Carregando...</div>}
       {mensagem && (
         <div className="text-center  text-red-700 mb-2">{mensagem}</div>
       )}

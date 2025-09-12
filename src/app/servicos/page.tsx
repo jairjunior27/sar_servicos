@@ -3,7 +3,7 @@ import { AuthPrivate } from "@/components/authPivate";
 import { Header } from "@/components/header";
 import { InputItem } from "@/components/inputItem";
 import { ListaItem } from "@/components/itemLista";
-import { OrcamentoItem } from "@/components/orcamentoItem";
+import { OrcamentoStep } from "@/components/orcamentoStep";
 import { useState } from "react";
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
     <AuthPrivate>
       <Header />
       <div className="grid grid-cols-2 md:grid-cols-4 m-6 bg-slate-900 rounded ">
-        {["lista", "orçamento", "contrato", "recibo"].map((item,index) => (
+        {["lista", "orçamento", "contrato", "recibo"].map((item, index) => (
           <div className="px-3 py-2" key={index}>
             <div className="flex items-center ">
               <InputItem
@@ -21,7 +21,6 @@ export default function Page() {
                 type="checkbox"
                 checked={item === selecionado}
                 onChange={() => setSelecionado(item)}
-              
               />
               <p className="mx-2 text-md  text-gray-200">
                 {item.charAt(0).toUpperCase() + item.slice(1)}
@@ -32,11 +31,10 @@ export default function Page() {
       </div>
 
       <div className="mx-6">
-        {selecionado === "lista" && <ListaItem/>}
-        {selecionado === "orçamento" && <OrcamentoItem/>}
+        {selecionado === "lista" && <ListaItem />}
+        {selecionado === "orçamento" && <OrcamentoStep />}
         {selecionado === "contrato" && <div>Renderizando Contrato...</div>}
         {selecionado === "recibo" && <div>Renderizando Recibo...</div>}
-       
       </div>
     </AuthPrivate>
   );
