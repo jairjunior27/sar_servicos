@@ -8,11 +8,13 @@ import { useContext, useEffect, useState } from "react";
 
 export default function Page() {
   const orcamento = useContext(OrcamentoContext);
+  if (!orcamento) return null;
   const [msg, setMsg] = useState("");
   const route = useRouter();
-  if (!orcamento) return null;
+
   useEffect(() => {
     const time = setTimeout(() => {
+      if (!msg) return;
       setMsg("");
     }, 2000);
     return () => clearTimeout(time);
@@ -27,9 +29,8 @@ export default function Page() {
     ) {
       return setMsg("Favor inserir todos os dados !");
     }
-     orcamento.addServicos()
-    
-   
+    orcamento.addServicos();
+
     route.push("/servicos/orcamento/step3");
   };
 
