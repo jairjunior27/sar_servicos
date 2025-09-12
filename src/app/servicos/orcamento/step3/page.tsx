@@ -13,17 +13,23 @@ export default function Page() {
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [ultimo, setUltimo] = useState(0);
   const route = useRouter();
-  if (!orcamento) return null;
+
 
   useEffect(() => {
     const dados = localStorage.getItem("ultimo");
+    if (dados) {
     setUltimo(Number(dados) + 1);
+  } else {
+    setUltimo(1);
+  }
   }, []);
 
   useEffect(() => {
+    if (ultimo > 0) {
     localStorage.setItem("ultimo", ultimo.toString());
+  }
   }, [ultimo]);
-
+  if (!orcamento) return null;
   const valorGeral = orcamento.orcamentoCliente.reduce(
     (acc, item) => (acc += item.valor),
     0
@@ -123,7 +129,7 @@ export default function Page() {
           <div className="mt-10">
             <div className="flex justify-between mb-6">
               {["Pix", "Dinheiro"].map((item, index) => (
-                <div className="flex">
+                <div className="flex" key={index}>
                   <InputItem
                     className=""
                     type="checkbox"
