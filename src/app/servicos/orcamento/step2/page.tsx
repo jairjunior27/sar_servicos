@@ -7,18 +7,21 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 export default function Page() {
+
   const orcamento = useContext(OrcamentoContext);
-  if (!orcamento) return null;
   const [msg, setMsg] = useState("");
   const route = useRouter();
 
+
+  if (!orcamento) return <div>Carregando...</div>;
+
+ 
   useEffect(() => {
-    const time = setTimeout(() => {
-      if (!msg) return;
-      setMsg("");
-    }, 2000);
+    if (!msg) return;
+    const time = setTimeout(() => setMsg(""), 2000);
     return () => clearTimeout(time);
   }, [msg]);
+
   const handleClick = () => {
     if (
       !orcamento.servico ||
@@ -27,9 +30,16 @@ export default function Page() {
       !orcamento.valorServico ||
       !orcamento.valorDesconto
     ) {
-      return setMsg("Favor inserir todos os dados !");
+      return setMsg("Favor inserir todos os dados!");
     }
     orcamento.addServicos();
+
+ 
+    orcamento.setServico("");
+    orcamento.setDescricao("");
+    orcamento.setValorServico(0);
+    orcamento.setValorDesconto(0);
+    orcamento.setQuantidade(0);
 
     route.push("/servicos/orcamento/step3");
   };
@@ -45,14 +55,12 @@ export default function Page() {
             value={orcamento.servico}
             onChange={(e) => orcamento.setServico(e.target.value)}
           />
-
           <InputItem
             className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
             placeholder="Digite a descrição"
             value={orcamento.descricao}
             onChange={(e) => orcamento.setDescricao(e.target.value)}
           />
-
           <InputItem
             className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
             placeholder="Digite valor R$ do serviço"
@@ -70,7 +78,6 @@ export default function Page() {
               orcamento.setValorServico(number);
             }}
           />
-
           <InputItem
             className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
             placeholder="Digite valor R$ do desconto"
@@ -88,7 +95,6 @@ export default function Page() {
               orcamento.setValorDesconto(number);
             }}
           />
-
           <InputItem
             type="number"
             className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
@@ -104,7 +110,7 @@ export default function Page() {
           )}
           <ButtomItem
             className="text-center font-bold bg-yellow-500 p-2 mt-10 rounded"
-            label="Adcionar"
+            label="Adicionar"
             onClick={handleClick}
           />
         </div>
