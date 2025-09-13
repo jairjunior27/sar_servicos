@@ -3,7 +3,7 @@ import { ButtomItem } from "./buttonItem";
 import { InputItem } from "./inputItem";
 import { useContext, useEffect, useState } from "react";
 import { OrcamentoContext } from "@/contextProvider/orcamentoContext";
-
+import { storageCliente } from "@/util/storage";
 
 export const OrcamentoStep = () => {
   const route = useRouter();
@@ -17,14 +17,21 @@ export const OrcamentoStep = () => {
     return () => clearTimeout(time);
   }, [msg]);
 
-
-  const handleClick = () =>{
-    if(!orcamento?.nomecliente || !orcamento.telefoneCliente){
-      return setMsg("Favor inserir todos os dados !")
+  const handleClick = () => {
+    if (!orcamento?.nomecliente || !orcamento.telefoneCliente) {
+      return setMsg("Favor inserir todos os dados !");
     }
 
-    route.push("/servicos/orcamento/step2")
-  }
+    const cliente = {
+      id: crypto.randomUUID(),
+      nome: orcamento.nomecliente,
+      telefone: orcamento.telefoneCliente
+    }
+
+    storageCliente.set(cliente)
+
+    route.push("/servicos/orcamento/step2");
+  };
   return (
     <div className="max-w-4xl m-auto mt-20">
       <InputItem
@@ -35,7 +42,7 @@ export const OrcamentoStep = () => {
       />
       <InputItem
         className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
-        placeholder="Digite o telefone do cliente"
+        placeholder="Digite o telefone Ex: 11 91111-1111"
         onChange={(e) => orcamento?.setTelefoneCliente(e.target.value)}
         value={orcamento?.telefoneCliente}
       />
@@ -47,8 +54,8 @@ export const OrcamentoStep = () => {
       )}
 
       <ButtomItem
-        className="bg-yellow-500 p-2 rounded text-center font-bold text-gray-800 mt-10"
-        label="enviar"
+        className="bg-yellow-500 p-2 rounded text-center font-bold text-gray-800 mt-10 cursor-pointer"
+        label="Adcionar"
         onClick={handleClick}
       />
     </div>

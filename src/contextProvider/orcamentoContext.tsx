@@ -15,14 +15,15 @@ interface orcamentType {
   setDescricao: (value: string) => void;
   valorServico: number;
   setValorServico: (value: number) => void;
-  valorDesconto: number;
+  valorDesconto: number
   setValorDesconto: (value: number) => void;
   quantidade: number;
   setQuantidade: (value: number) => void;
   data: string;
   setData: (value: string) => void;
-  anoAtual: number | string;
+  anoAtual: number 
   addServicos: () => void;
+  excluirItemServico: (n: string) => void
 }
 
 export const OrcamentoContext = createContext<orcamentType | undefined>(

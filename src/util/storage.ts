@@ -1,3 +1,4 @@
+import { clientType } from "@/type/clienteType";
 import { listaType } from "@/type/lista";
 import { orcamentoType } from "@/type/orcamento";
 
@@ -27,6 +28,26 @@ export const StorageOrcamento = {
     }
   },
   set: (orcamento: orcamentoType[]) => {
-    localStorage.setItem("orcamento",JSON.stringify(orcamento));
+    localStorage.setItem("orcamento", JSON.stringify(orcamento));
+  },
+  remove: (id: string | number) => {
+    const data = StorageOrcamento.get();
+    const update = data.filter((f) => f.id !== id);
+    StorageOrcamento.set(update);
+  },
+};
+
+export const storageCliente = {
+  get: () => {
+    const data = localStorage.getItem("cliente");
+    if (!data) return null;
+    try {
+      return JSON.parse(data) as clientType;
+    } catch (e) {
+      return null;
+    }
+  },
+  set: (cliente: clientType) => {
+    localStorage.setItem("cliente", JSON.stringify(cliente));
   },
 };

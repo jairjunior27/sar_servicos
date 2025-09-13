@@ -18,16 +18,26 @@ export const OrcamentoProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState("");
   const anoAtual = new Date().getFullYear();
 
-  useEffect(()=>{
-const dados = StorageOrcamento.get()
-if(dados.length > 0){
-  setOrcamentoCliente(dados)
-}
-  },[])
+  const loadServicos = () => {
+    const dados = StorageOrcamento.get();
 
-    useEffect(() => {
+    setOrcamentoCliente(dados);
+  };
+  useEffect(() => {
+    const all = () => {
+      loadServicos();
+    };
+    all();
+  }, []);
+
+  useEffect(() => {
     StorageOrcamento.set(orcamentoCliente);
   }, [orcamentoCliente]);
+
+  const excluirItemServico = (id: string) => {
+    StorageOrcamento.remove(id);
+    loadServicos();
+  };
 
   const addServicos = () => {
     const newServicos: orcamentoType = {
@@ -38,13 +48,11 @@ if(dados.length > 0){
       quantidade,
       desconto: valorDesconto,
 
-      total: valorServico * quantidade - valorDesconto,
+      total: valorServico * quantidade,
     };
 
-    setOrcamentoCliente((prev) => [...prev,newServicos]);
-    StorageOrcamento.set(orcamentoCliente)
-  
-   
+    setOrcamentoCliente((prev) => [...prev, newServicos]);
+    StorageOrcamento.set(orcamentoCliente);
   };
   return (
     <OrcamentoContext.Provider
@@ -66,9 +74,10 @@ if(dados.length > 0){
         setTelefoneCliente,
         setNomeCliente,
         orcamentoCliente,
-setOrcamentoCliente,
+        setOrcamentoCliente,
         anoAtual,
         addServicos,
+        excluirItemServico,
       }}
     >
       {children}
