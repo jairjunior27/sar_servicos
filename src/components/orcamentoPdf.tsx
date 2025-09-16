@@ -4,16 +4,16 @@ import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
 
 type prop = {
   formaDePagamento: string | null;
+  logoSelecionado: string | null;
   emissaoOrcamento: string;
   validadeOrcamento: string;
 
-  checkImagem: boolean;
   ultimoNumero: number;
   anoAtual: number;
 };
 
 export const OrcamentoPdf = ({
-  checkImagem,
+  logoSelecionado,
 
   formaDePagamento,
   emissaoOrcamento,
@@ -35,9 +35,51 @@ export const OrcamentoPdf = ({
   return (
     <Document>
       <Page size="A4" style={{ padding: 20 }}>
-        {checkImagem && (
+        {logoSelecionado === "JC" && (
           <Image
             src="/assets/logojc.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Jair Junior" && (
+          <Image
+            src="/assets/jairJunior.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Sar" && (
+          <Image
+            src="/assets/sistemaSar.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Rádio Novo Dial" && (
+          <Image
+            src="/assets/novoDial.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Rádio Sintonia" && (
+          <Image
+            src="/assets/radioSintonia.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Rádio Uruguai" && (
+          <Image
+            src="/assets/radioUruguai.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Christian Cezar" && (
+          <Image
+            src="/assets/christianCezar.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {logoSelecionado === "Cesar Augusto" && (
+          <Image
+            src="/assets/cesarAugusto.png"
             style={{ width: "100%", height: 170 }}
           />
         )}
@@ -141,14 +183,20 @@ export const OrcamentoPdf = ({
           </View>
         ))}
 
-        <Text style={{ textAlign: "right" , fontSize: 10,   marginTop: 30,marginBottom: 8}}>
+        <Text
+          style={{
+            textAlign: "right",
+            fontSize: 10,
+            marginTop: 30,
+            marginBottom: 8,
+          }}
+        >
           Total de Itens:{" "}
           {orcamento.length < 10 ? `0${orcamento.length}` : orcamento.length}
         </Text>
 
         <View
           style={{
-          
             textAlign: "right",
             fontSize: 10,
             borderTop: 2,

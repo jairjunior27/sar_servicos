@@ -40,7 +40,7 @@ export default function Page() {
 
     route.push("/servicos/orcamento/step3");
   };
-
+  if (!orcamento) return null;
   return (
     <AuthPrivate>
       <div>
@@ -102,11 +102,11 @@ export default function Page() {
               onChange={(e) => orcamento.setQuantidade(Number(e.target.value))}
             />
 
-            {msg && (
+            {msg ? (
               <span className="flex items-center justify-center mt-2 text-red-500">
                 {msg}
               </span>
-            )}
+            ) : null}
             <ButtomItem
               className="text-center font-bold bg-orange-300 p-2 mt-10 rounded cursor-pointer"
               label="voltar"

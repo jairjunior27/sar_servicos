@@ -23,18 +23,18 @@ export const ReciboPdf = ({
   const dadosMes = Formatdata(data);
   const [dia, mes, ano] = dadosMes.split("/");
   const [numeroAtual, setNumeroAtual] = useState(0);
-  let dataModificada = `${dia} de ${DadosMensal[Number(mes) - 1]} / ${ano}`;
+  const dataModificada = `${dia} de ${DadosMensal[Number(mes) - 1]} / ${ano}`;
 
   useEffect(() => {
     const dados = localStorage.getItem("ultimo");
     setNumeroAtual(Number(dados));
-  });
+  },[]);
   return (
     <Document>
       <Page size="A4" style={{ padding: 20 }}>
         {selecionado === "Rádio Novo Dial" && (
           <Image
-            src="/assets/novoDial.png"
+            src="/assets/novoDial.png" 
             style={{ width: "100%", height: 170 }}
           />
         )}
@@ -63,10 +63,25 @@ export const ReciboPdf = ({
             style={{ width: "100%", height: 170 }}
           />
         )}
-        {selecionado === "Jair Junior"}
-        {selecionado === "Cesar Augusto"}
-        {selecionado === "Christian Cesar"}
-        {selecionado === "Layne Coelho"}
+        {selecionado === "Jair Junior" && (
+          <Image
+            src="/assets/jairJunior.png"
+            style={{ width: "100%", height: 130 }}
+          />
+        )}
+    
+        {selecionado === "Christian Cezar" && (
+          <Image
+            src="/assets/christianCezar.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {selecionado === "Cesar Augusto" && (
+          <Image
+            src="/assets/cesarAugusto.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
 
         <View>
           <Text
@@ -243,6 +258,28 @@ export const ReciboPdf = ({
                     />
                     <Text style={{ marginTop: 1, fontSize: 11 }}>
                       Jair Cezar Lima ( Diretor e Locutor )
+                    </Text>
+                  </>
+                )}
+                {selecionado === "Jair Junior" && (
+                  <>
+                    <Image
+                      src="/assets/assinJr.png"
+                      style={{ width: "100%", height: 40, borderBottom: 1 }}
+                    />
+                    <Text style={{ marginTop: 1, fontSize: 11 }}>
+                      Jair Cezar Junior ( Produtor e Musico )
+                    </Text>
+                  </>
+                )}
+                {selecionado === "Cesar Augusto" && (
+                  <>
+                    <Image
+                      src="/assets/assinCesar.png"
+                      style={{ width: "100%", height: 40, borderBottom: 1 }}
+                    />
+                    <Text style={{ marginTop: 1, fontSize: 11 }}>
+                      Cezar Augusto ( Locutor e Vendedor )
                     </Text>
                   </>
                 )}

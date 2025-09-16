@@ -49,7 +49,8 @@ export default function Page() {
   return (
     <div>
       <Header />
-      <div className="max-w-7xl m-auto mx-6 pb-20 pt-10">
+     <div className="m-6">
+       <div className="max-w-7xl m-auto  pb-20 pt-10">
         <h2 className="text-center text-lg md:text-xl  font-semibold mb-10">
           Recibo | {selecionado}
         </h2>
@@ -135,6 +136,7 @@ export default function Page() {
           )}
         </div>
       </div>
+     </div>
     </div>
   );
 }

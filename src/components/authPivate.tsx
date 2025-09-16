@@ -6,8 +6,11 @@ import { ReactNode, useContext, useEffect } from "react";
 export const AuthPrivate = ({ children }: { children: ReactNode }) => {
   const auth = useContext(UsuarioContext);
   const route = useRouter();
+
   useEffect(() => {
-    if (auth?.user === null) {
+    if (!auth) return;
+
+    if (auth.user === null) {
       const storageToken = localStorage.getItem("token");
 
       if (!storageToken) {
@@ -16,12 +19,17 @@ export const AuthPrivate = ({ children }: { children: ReactNode }) => {
         auth.setLoading(false);
       }
     } else {
-      auth?.setLoading(false);
+      auth.setLoading(false);
     }
-  }, [auth?.user, route]);
+  }, [auth, auth?.user, route]);
 
   if (auth?.loading) {
-    return <div className="flex items-center justify-center mt-20">Carregando...</div>;
+    return (
+      <div className="flex items-center justify-center mt-20">
+        Carregando...
+      </div>
+    );
   }
+
   return <>{children}</>;
 };

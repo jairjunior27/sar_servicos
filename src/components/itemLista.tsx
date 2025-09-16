@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InputItem } from "./inputItem";
 import { faArrowAltCircleRight } from "@fortawesome/free-regular-svg-icons";
 import { ButtomItem } from "./buttonItem";
@@ -9,6 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ListaSar } from "./listaSar";
 import { StorageLista } from "@/util/storage";
 import { listaType } from "@/type/lista";
+import { UsuarioContext } from "@/contextProvider/userContext";
 
 export const ListaItem = () => {
   const [nome, setNome] = useState("");
@@ -19,7 +20,7 @@ export const ListaItem = () => {
 
   const [selecionado, setSelecionado] = useState("");
   const [select, setSelect] = useState("");
-
+   const user = useContext(UsuarioContext)
   useEffect(() => {
     const time = setTimeout(() => setMsg(""), 2000);
     return () => clearTimeout(time);
@@ -139,9 +140,9 @@ export const ListaItem = () => {
           <h2 className="text-center text-gray-500 font-bold text-sm">
             Pdf com Imagem:
           </h2>
-          <div className="flex items-center justify-between mt-4 bg-slate-900 p-2">
-            {["Img Sar", "Img Jc"].map((item, index) => (
-              <div className="flex " key={index}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-4 bg-slate-900 p-2 rounded">
+            {["Img Sar", "Img Jc", `${user?.user?.name}`].map((item, index) => (
+              <div className="flex m-2 " key={index}>
                 <InputItem
                   type="checkbox"
                   className=""

@@ -12,14 +12,33 @@ export const ListaSar = ({ lista, nomeLista, tipo, checkImagem }: prop) => {
   return (
     <Document>
       <Page size="A4" style={{ padding: 20 }}>
-        {checkImagem === "Img Jc" ? (
+        {checkImagem === "Img Jc" && (
           <Image
             src="/assets/logojc.png"
             style={{ width: "100%", height: 170 }}
           />
-        ) : (
+        )}
+        {checkImagem === "Img Jc" && (
           <Image
             src="/assets/sistemaSar.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {checkImagem === "Christian Cezar" && (
+          <Image
+            src="/assets/christianCezar.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {checkImagem === "Cesar Augusto" && (
+          <Image
+            src="/assets/cesarAugusto.png"
+            style={{ width: "100%", height: 170 }}
+          />
+        )}
+        {checkImagem === "Jair Junior" && (
+          <Image
+            src="/assets/jairJunior.png"
             style={{ width: "100%", height: 170 }}
           />
         )}

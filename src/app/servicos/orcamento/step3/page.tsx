@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { InputItem } from "@/components/inputItem";
 import { OrcamentoPdf } from "@/components/orcamentoPdf";
 import { OrcamentoContext } from "@/contextProvider/orcamentoContext";
+import { UsuarioContext } from "@/contextProvider/userContext";
 import { clientType } from "@/type/clienteType";
 import { formatarMoeda } from "@/util/formatMoeda";
 import { storageCliente } from "@/util/storage";
@@ -18,8 +19,11 @@ import { useContext, useEffect, useState } from "react";
 
 export default function Page() {
   const orcamento = useContext(OrcamentoContext);
-
-  const [selecionado, setSelecionado] = useState<string | null>(null);
+  const user = useContext(UsuarioContext);
+  const [selecionadoFormaPagamento, setSelecionadoFormaPagamento] = useState<
+    string | null
+  >(null);
+  const [selecionadoLogo, setSelecionadoLogo] = useState<string | null>(null);
   const [ultimo, setUltimo] = useState(0);
 
   const route = useRouter();
@@ -29,7 +33,7 @@ export default function Page() {
   const hjAtualizada = hoje.toLocaleDateString("pt-BR");
   const daqui30diasAtualizada = daqui30dias.toLocaleDateString("pt-BR");
   const [msg, setMsg] = useState("");
-  const [checked, setChecked] = useState(false);
+
   const [cliente, setCliente] = useState<clientType | null>(null);
 
   useEffect(() => {
@@ -55,6 +59,7 @@ export default function Page() {
   }, [msg]);
 
   if (!orcamento) return null;
+  if (!user) return null;
 
   const descontoTotal = orcamento.orcamentoCliente.reduce(
     (acc, item) => (acc += item.desconto),
@@ -76,6 +81,10 @@ export default function Page() {
     const novoUltimo = ultimo + 1;
     setUltimo(novoUltimo);
     localStorage.setItem("ultimo", novoUltimo.toString());
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
   return (
     <AuthPrivate>
@@ -192,31 +201,65 @@ export default function Page() {
               </p>
             </div>
             <div className="bg-slate-900 text-gray-200 p-2 rounded my-10">
-               <h2 className="text-center mb-6 border-b">Forma de Pagamento</h2>
+              <h2 className="text-center mb-6 border-b">Forma de Pagamento</h2>
               <div className="">
-                <div className="flex justify-between mb-6">
+                <div className="flex justify-between px-2 mb-6">
                   {["Pix", "Dinheiro"].map((item, index) => (
                     <div className="flex" key={index}>
                       <InputItem
                         className=""
                         type="checkbox"
-                        onChange={() => setSelecionado(item)}
-                        checked={item === selecionado}
+                        onChange={() => setSelecionadoFormaPagamento(item)}
+                        checked={item === selecionadoFormaPagamento}
                       />
                       <span className="ml-2">{item}</span>
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center justify-center ">
-                 
-                  <InputItem
-                    className=""
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                    type="checkbox"
-                  />
-                  <span className="ml-2">Adcionar Logo</span>
-                </div>
+                {user.user?.name &&
+                user.user.name === process.env.NEXT_PUBLIC_NAME ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ">
+                    {[
+                      "Rádio Novo Dial",
+                      "Rádio Uruguai",
+                      "Rádio Sintonia",
+                      "JC",
+                      "Sar",
+                      "Jair Junior",
+                      "Cesar Augusto",
+                      "Christian Cesar",
+                    ].map((item, index) => (
+                      <div className="flex m-2" key={index}>
+                        <InputItem
+                          className=""
+                          onChange={() => setSelecionadoLogo(item)}
+                          checked={item === selecionadoLogo}
+                          type="radio"
+                        />
+                        <span className="ml-2">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ">
+                    {[
+                      "Rádio Novo Dial",
+                      "Rádio Uruguai",
+                      "Rádio Sintonia",
+                      `${user.user?.name && user.user.name}`,
+                    ].map((item, index) => (
+                      <div className="flex m-2" key={index}>
+                        <InputItem
+                          className=""
+                          onChange={() => setSelecionadoLogo(item)}
+                          checked={item === selecionadoLogo}
+                          type="radio"
+                        />
+                        <span className="ml-2">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -232,14 +275,14 @@ export default function Page() {
               </span>
             )}
 
-            {selecionado !== null ? (
+            {selecionadoFormaPagamento !== null ? (
               <PDFDownloadLink
                 document={
                   <OrcamentoPdf
-                    checkImagem={checked}
+                    logoSelecionado={selecionadoLogo}
                     emissaoOrcamento={hjAtualizada}
                     validadeOrcamento={daqui30diasAtualizada}
-                    formaDePagamento={selecionado}
+                    formaDePagamento={selecionadoFormaPagamento}
                     ultimoNumero={ultimo}
                     anoAtual={orcamento.anoAtual}
                   />

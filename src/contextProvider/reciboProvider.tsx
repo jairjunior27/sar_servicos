@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ReactNode, useState } from "react";
 import { ReciboContext } from "./reciboContext";
 
@@ -9,6 +9,7 @@ export const ReciboProvider = ({ children }: { children: ReactNode }) => {
   const [referencia, setReferencia] = useState("");
   const [data, setData] = useState("");
   const [selecionado, setSelecionado] = useState<string | null>(null);
+  const [selecionadoLogo, setSelecionadoLogo] = useState<string | null>(null);
   return (
     <ReciboContext.Provider
       value={{
@@ -24,6 +25,8 @@ export const ReciboProvider = ({ children }: { children: ReactNode }) => {
         valor,
         selecionado,
         setSelecionado,
+        selecionadoLogo,
+        setSelecionadoLogo,
       }}
     >
       {children}

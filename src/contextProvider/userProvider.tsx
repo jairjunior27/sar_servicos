@@ -10,6 +10,7 @@ export const UsuarioProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
   const route = useRouter();
+
   const isTokenExpired = (token: string): boolean => {
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
@@ -19,43 +20,55 @@ export const UsuarioProvider = ({ children }: { children: ReactNode }) => {
       return true;
     }
   };
+
+  useEffect(() => {
+    const tokenLocal = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("usuario");
+
+    if (tokenLocal && storedUser && !isTokenExpired(tokenLocal)) {
+      setUser({ name: storedUser } as User);
+      setToken(tokenLocal);
+    } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("usuario");
+    }
+
+    setLoading(false);
+  }, []);
+
   useEffect(() => {
     const validaTokenLocal = async () => {
       const tokenLocal = localStorage.getItem("token");
-
-      if (!tokenLocal) {
-        setLoading(false);
-
-        return;
-      }
+      if (!tokenLocal) return;
 
       if (isTokenExpired(tokenLocal)) {
-        setLoading(false);
         setUser(null);
         setToken("");
         localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
         return;
       }
 
       try {
         const response = await useApi.validateToken(tokenLocal);
-         
+
         if (response?.user && response.token) {
           setUser(response.user);
           setToken(response.token);
           localStorage.setItem("token", tokenLocal);
+          localStorage.setItem("usuario", response.user.name);
         } else {
-          localStorage.removeItem("token");
           setUser(null);
           setToken("");
+          localStorage.removeItem("token");
+          localStorage.removeItem("usuario");
         }
       } catch (e) {
-        localStorage.removeItem("token");
+        console.log("Token inválido", e);
         setUser(null);
         setToken("");
-        console.log("Token invalido", e);
-      } finally {
-        setLoading(false);
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
       }
     };
 
@@ -64,12 +77,14 @@ export const UsuarioProvider = ({ children }: { children: ReactNode }) => {
 
   const signin = async (email: string, password: string) => {
     const response = await useApi.login(email, password);
+   
     if (response?.user && response.token) {
+ 
       setUser(response.user);
       setToken(response.token);
-      setLoading(false);
-
+      localStorage.setItem("usuario", response.user.name);
       localStorage.setItem("token", response.token);
+      setLoading(false);
       return true;
     }
 
@@ -78,11 +93,15 @@ export const UsuarioProvider = ({ children }: { children: ReactNode }) => {
 
   const signout = (redirecione = true) => {
     setUser(null);
+    setToken("");
     localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+
     if (redirecione) {
       route.push("/");
     }
   };
+
   return (
     <UsuarioContext.Provider
       value={{

@@ -2,7 +2,7 @@
 import { UsuarioContext } from "@/contextProvider/userContext";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 
 export const ButtonHeader = () => {
   const { signout,token } = useContext(UsuarioContext)!;

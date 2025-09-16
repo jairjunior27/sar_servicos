@@ -13,6 +13,8 @@ interface reciboContextType {
   setData: (d: string) => void;
   selecionado: string | null
   setSelecionado: (selecionado: string) => void 
+   selecionadoLogo: string | null
+  setSelecionadoLogo: (selecionado: string) => void 
 }
 
 export const ReciboContext = createContext<reciboContextType | undefined>(
