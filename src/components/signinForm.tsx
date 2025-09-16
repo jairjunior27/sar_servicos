@@ -46,13 +46,14 @@ export const SigninForm = () => {
   return (
     <div className="max-w-2xl m-auto mt-20">
       <InputItem
-        className="bg-slate-900 p-2 rounded-xl text-gray-200 mb-6"
+        className="bg-slate-900 p-3 rounded-xl text-gray-200 mb-6"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Digite seu email"
+        type="email"
       />
       <InputItem
-        className="bg-slate-900 p-2 rounded-xl text-gray-200 mb-6 flex items-center"
+        className="bg-slate-900 p-3 rounded-xl text-gray-200 mb-6 flex items-center"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Digite sua senha"
@@ -65,7 +66,7 @@ export const SigninForm = () => {
       <ButtomItem
         label="Enviar"
         onClick={handleButton}
-        className="bg-orange-400 mt-10  p-2 rounded-xl text-center font-bold text-gray-300 opacity-100 hover:opacity-75 cursor-pointer"
+        className="bg-orange-400 mt-10  p-3 rounded-xl text-center font-bold text-gray-300 opacity-100 hover:opacity-75 cursor-pointer"
       />
     </div>
   );

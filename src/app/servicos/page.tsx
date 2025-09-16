@@ -4,6 +4,8 @@ import { Header } from "@/components/header";
 import { InputItem } from "@/components/inputItem";
 import { ListaItem } from "@/components/itemLista";
 import { OrcamentoStep } from "@/components/orcamentoStep";
+import { Recibo } from "@/components/recibo";
+import { ReciboProvider } from "@/contextProvider/reciboProvider";
 import { useState } from "react";
 
 export default function Page() {
@@ -12,29 +14,38 @@ export default function Page() {
   return (
     <AuthPrivate>
       <Header />
-      <div className="grid grid-cols-2 md:grid-cols-4 m-6 bg-slate-900 rounded ">
-        {["lista", "orçamento", "contrato", "recibo"].map((item, index) => (
-          <div className="px-3 py-2" key={index}>
-            <div className="flex items-center ">
-              <InputItem
-                className=""
-                type="checkbox"
-                checked={item === selecionado}
-                onChange={() => setSelecionado(item)}
-              />
-              <p className="mx-2 text-md  text-gray-200">
-                {item.charAt(0).toUpperCase() + item.slice(1)}
-              </p>
+      <div className="m-6">
+        <div
+          className="grid grid-cols-2 md:grid-cols-4  bg-slate-900 rounded p-2 
+         max-w-7xl m-auto"
+        >
+          {["lista", "orçamento", "contrato", "recibo"].map((item, index) => (
+            <div className="px-3 py-2" key={index}>
+              <div className="flex items-center ">
+                <InputItem
+                  className=""
+                  type="checkbox"
+                  checked={item === selecionado}
+                  onChange={() => setSelecionado(item)}
+                />
+                <p className="mx-2 text-md  text-gray-200">
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="mx-6">
-        {selecionado === "lista" && <ListaItem />}
-        {selecionado === "orçamento" && <OrcamentoStep />}
-        {selecionado === "contrato" && <div>Renderizando Contrato...</div>}
-        {selecionado === "recibo" && <div>Renderizando Recibo...</div>}
+        <div className=" mt-20 max-w-7xl m-auto">
+          {selecionado === "lista" && <ListaItem />}
+          {selecionado === "orçamento" && <OrcamentoStep />}
+          {selecionado === "contrato" && <div>Renderizando Contrato...</div>}
+          {selecionado === "recibo" && (
+            <ReciboProvider>
+              <Recibo />
+            </ReciboProvider>
+          )}
+        </div>
       </div>
     </AuthPrivate>
   );

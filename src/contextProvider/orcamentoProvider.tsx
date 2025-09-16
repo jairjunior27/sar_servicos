@@ -12,6 +12,7 @@ export const OrcamentoProvider = ({ children }: { children: ReactNode }) => {
   const [orcamentoCliente, setOrcamentoCliente] = useState<orcamentoType[]>([]);
   const [servico, setServico] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [emailCliente,setEmailCliente] = useState("")
   const [valorServico, setValorServico] = useState<number>(0);
   const [valorDesconto, setValorDesconto] = useState<number>(0);
   const [quantidade, setQuantidade] = useState<number>(0);
@@ -78,6 +79,8 @@ export const OrcamentoProvider = ({ children }: { children: ReactNode }) => {
         anoAtual,
         addServicos,
         excluirItemServico,
+        setEmailCliente,
+        emailCliente
       }}
     >
       {children}

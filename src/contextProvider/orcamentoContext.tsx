@@ -6,7 +6,8 @@ interface orcamentType {
   setNomeCliente: (cliente: string) => void;
   telefoneCliente: string;
   setTelefoneCliente: (telefone: string) => void;
-
+  emailCliente: string
+  setEmailCliente: (email: string) => void
   orcamentoCliente: orcamentoType[];
   setOrcamentoCliente: (orcamento: orcamentoType[]) => void;
   servico: string;

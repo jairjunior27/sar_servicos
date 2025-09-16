@@ -1,9 +1,10 @@
 import { useRouter } from "next/navigation";
 import { ButtomItem } from "./buttonItem";
 import { InputItem } from "./inputItem";
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { OrcamentoContext } from "@/contextProvider/orcamentoContext";
 import { storageCliente } from "@/util/storage";
+import { formatarNumeros } from "@/util/formatarNumeros";
 
 export const OrcamentoStep = () => {
   const route = useRouter();
@@ -17,6 +18,12 @@ export const OrcamentoStep = () => {
     return () => clearTimeout(time);
   }, [msg]);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const valor = e.target.value;
+    const formatado = formatarNumeros(valor);
+    orcamento?.setTelefoneCliente(formatado);
+  };
+
   const handleClick = () => {
     if (!orcamento?.nomecliente || !orcamento.telefoneCliente) {
       return setMsg("Favor inserir todos os dados !");
@@ -25,26 +32,32 @@ export const OrcamentoStep = () => {
     const cliente = {
       id: crypto.randomUUID(),
       nome: orcamento.nomecliente,
-      telefone: orcamento.telefoneCliente
-    }
+      telefone: orcamento.telefoneCliente,
+    };
 
-    storageCliente.set(cliente)
+    storageCliente.set(cliente);
 
     route.push("/servicos/orcamento/step2");
   };
   return (
     <div className="max-w-4xl m-auto mt-20">
       <InputItem
-        className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
+        className="bg-slate-900 p-3 rounded text-gray-200 mb-5"
         placeholder="Digite o nome do cliente"
         onChange={(e) => orcamento?.setNomeCliente(e.target.value)}
         value={orcamento?.nomecliente}
       />
       <InputItem
-        className="bg-slate-900 p-2 rounded text-gray-200 mb-5"
+        className="bg-slate-900 p-3 mt-8 rounded text-gray-200 mb-5"
         placeholder="Digite o telefone Ex: 11 91111-1111"
-        onChange={(e) => orcamento?.setTelefoneCliente(e.target.value)}
+        onChange={handleChange}
         value={orcamento?.telefoneCliente}
+      />
+       <InputItem
+        className="bg-slate-900 p-3 rounded text-gray-200 mb-5 mt-8"
+        placeholder="Digite o email do cliente"
+        onChange={(e) => orcamento?.setEmailCliente(e.target.value)}
+        value={orcamento?.emailCliente}
       />
 
       {msg && (
@@ -54,7 +67,7 @@ export const OrcamentoStep = () => {
       )}
 
       <ButtomItem
-        className="bg-yellow-500 p-2 rounded text-center font-bold text-gray-800 mt-10 cursor-pointer"
+        className="bg-yellow-500 p-2 rounded text-center font-bold text-gray-800 mt-20 cursor-pointer"
         label="Adcionar"
         onClick={handleClick}
       />

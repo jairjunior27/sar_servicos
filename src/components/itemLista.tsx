@@ -16,7 +16,7 @@ export const ListaItem = () => {
   const [nomeItem, setNomeItem] = useState("");
   const [lista, setLista] = useState<listaType[]>([]);
   const [showItem, setShowItem] = useState(false);
-  const [checked, setChecked] = useState(false);
+
   const [selecionado, setSelecionado] = useState("");
   const [select, setSelect] = useState("");
 
@@ -66,7 +66,7 @@ export const ListaItem = () => {
     <div className="max-w-4xl m-auto">
       {showItem ? (
         <InputItem
-          className="bg-slate-900 w-full max-w-4xl m-auto rounded text-gray-200 px-3 py-2 flex items-center md:mt-4"
+          className="bg-slate-900 w-full max-w-4xl m-auto rounded text-gray-200 p-3 mt-5  flex items-center md:mt-4"
           placeholder="Adicione dados"
           value={nomeItem}
           onChange={(e) => setNomeItem(e.target.value)}
@@ -75,7 +75,7 @@ export const ListaItem = () => {
         />
       ) : (
         <InputItem
-          className="bg-slate-900 w-full max-w-4xl m-auto rounded text-gray-200 px-3 py-2 flex items-center md:mt-4"
+          className="bg-slate-900 w-full max-w-4xl m-auto rounded text-gray-200 p-3  mt-5 flex items-center md:mt-4"
           placeholder="Digite o nome da lista"
           value={nome}
           onChange={(e) => setNome(e.target.value)}

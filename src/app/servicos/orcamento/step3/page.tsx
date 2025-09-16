@@ -192,6 +192,7 @@ export default function Page() {
               </p>
             </div>
             <div className="bg-slate-900 text-gray-200 p-2 rounded my-10">
+               <h2 className="text-center mb-6 border-b">Forma de Pagamento</h2>
               <div className="">
                 <div className="flex justify-between mb-6">
                   {["Pix", "Dinheiro"].map((item, index) => (
@@ -207,6 +208,7 @@ export default function Page() {
                   ))}
                 </div>
                 <div className="flex items-center justify-center ">
+                 
                   <InputItem
                     className=""
                     checked={checked}
