@@ -6,11 +6,18 @@ import { ListaItem } from "@/components/itemLista";
 import { OrcamentoStep } from "@/components/orcamentoStep";
 import { Recibo } from "@/components/recibo";
 import { ReciboProvider } from "@/contextProvider/reciboProvider";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const [selecionado, setSelecionado] = useState<string | null>(null);
+  const router = useRouter();
 
+  useEffect(() => {
+    if (selecionado === "contrato") {
+      router.push("/servicos/contrato/contratado");
+    }
+  }, [selecionado, router]);
   return (
     <AuthPrivate>
       <Header />
@@ -39,7 +46,7 @@ export default function Page() {
         <div className=" mt-20 max-w-7xl m-auto">
           {selecionado === "lista" && <ListaItem />}
           {selecionado === "orçamento" && <OrcamentoStep />}
-          {selecionado === "contrato" && <div>Renderizando Contrato...</div>}
+
           {selecionado === "recibo" && (
             <ReciboProvider>
               <Recibo />

@@ -6,6 +6,7 @@ import { OrcamentoContext } from "@/contextProvider/orcamentoContext";
 import { storageCliente } from "@/util/storage";
 import { formatarNumeros } from "@/util/formatarNumeros";
 
+
 export const OrcamentoStep = () => {
   const route = useRouter();
   const orcamento = useContext(OrcamentoContext);
@@ -25,7 +26,11 @@ export const OrcamentoStep = () => {
   };
 
   const handleClick = () => {
-    if (!orcamento?.nomecliente || !orcamento.telefoneCliente) {
+    if (
+      !orcamento?.nomecliente ||
+      !orcamento.telefoneCliente ||
+      !orcamento.emailCliente
+    ) {
       return setMsg("Favor inserir todos os dados !");
     }
 
@@ -33,6 +38,7 @@ export const OrcamentoStep = () => {
       id: crypto.randomUUID(),
       nome: orcamento.nomecliente,
       telefone: orcamento.telefoneCliente,
+      email: orcamento.emailCliente,
     };
 
     storageCliente.set(cliente);
@@ -53,9 +59,10 @@ export const OrcamentoStep = () => {
         onChange={handleChange}
         value={orcamento?.telefoneCliente}
       />
-       <InputItem
+      <InputItem
         className="bg-slate-900 p-3 rounded text-gray-200 mb-5 mt-8"
         placeholder="Digite o email do cliente"
+        type="e-mail"
         onChange={(e) => orcamento?.setEmailCliente(e.target.value)}
         value={orcamento?.emailCliente}
       />

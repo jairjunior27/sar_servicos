@@ -91,7 +91,8 @@ export const OrcamentoPdf = ({
             marginBottom: 20,
           }}
         >
-          Orçamento Nº {ultimoNumero} | {anoAtual}{" "}
+          Orçamento Nº {ultimoNumero < 100 ? `00${ultimoNumero}` : ultimoNumero}{" "}
+          | {anoAtual}{" "}
         </Text>
         <View
           style={{
@@ -128,20 +129,60 @@ export const OrcamentoPdf = ({
           <Text style={{ fontSize: 12, marginBottom: 4, textAlign: "center" }}>
             Dados do Cliente:
           </Text>
-          <Text style={{ fontSize: 11, fontWeight: "bold", marginBottom: 3 }}>
-            Cliente: {cliente?.nome}
-          </Text>
-          <Text style={{ fontSize: 11, fontWeight: "bold" }}>
-            Telefone: {cliente?.telefone}
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              fontSize: 11,
+              flexWrap: "wrap",
+              marginBottom: 3,
+              alignItems: "center",
+            }}
+          >
+            <Text>Cliente:</Text>
+            <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+              {cliente?.nome}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              fontSize: 11,
+              flexWrap: "wrap",
+              marginBottom: 3,
+              alignItems: "center",
+            }}
+          >
+            <Text>Telefone:</Text>
+            <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+              {" "}
+              {cliente?.telefone}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              fontSize: 11,
+              flexWrap: "wrap",
+              marginBottom: 3,
+              alignItems: "center",
+            }}
+          >
+            <Text>Email:</Text>
+            <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+              {cliente?.email}
+            </Text>
+          </View>
         </View>
 
         <View
           style={{
-            textAlign: "left",
+            textAlign: "center",
 
             fontSize: 11,
             flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
             borderBottom: 2,
             paddingBottom: 10,
             marginBottom: 7,
@@ -158,28 +199,110 @@ export const OrcamentoPdf = ({
             >
               Item {index + 1 < 10 ? `0${index + 1}` : index + 1}:
             </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Serviço: {item.servico.toUpperCase()}
-            </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Descrição: {item.descricao.toUpperCase()}
-            </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Valor Unitário: {formatarMoeda(item.valor)}
-            </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Quantidade: {item.quantidade}
-            </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Valor Total: {formatarMoeda(item.total)}
-            </Text>
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Desconto: {formatarMoeda(item.desconto)}
-            </Text>
-
-            <Text style={{ fontSize: 10, marginBottom: 5 }}>
-              Sub-Total: {formatarMoeda(item.total - item.desconto)}
-            </Text>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Serviço:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {item.servico.toUpperCase()}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text> Descrição:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {item.descricao.toUpperCase()}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Valor Unitário:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {formatarMoeda(item.valor)}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Quantidade:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {item.quantidade}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Valor Total:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {formatarMoeda(item.total)}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Desconto:</Text>
+              <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+                {formatarMoeda(item.desconto)}
+              </Text>
+            </View>
+            <View
+              style={{
+                fontSize: 10,
+                marginBottom: 5,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <Text>Sub-Total:</Text>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginHorizontal: 3,
+                  marginBottom: 7,
+                }}
+              >
+                {formatarMoeda(item.total - item.desconto)}
+              </Text>
+            </View>
           </View>
         ))}
 
@@ -198,18 +321,25 @@ export const OrcamentoPdf = ({
         <View
           style={{
             textAlign: "right",
-            fontSize: 10,
+
             borderTop: 2,
             paddingTop: 10,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>
-            Sub-Total Geral: {formatarMoeda(subTotal)}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
-            Desconto Geral: {formatarMoeda(descontoGeral)}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
+          <View style={{ flexDirection: "row", marginBottom: 5, fontSize: 11 }}>
+            <Text>Sub-Total Geral:</Text>
+            <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+              {formatarMoeda(subTotal)}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", marginBottom: 5, fontSize: 11 }}>
+            <Text>Desconto Geral:</Text>
+            <Text style={{ fontWeight: "bold", marginHorizontal: 3 }}>
+              {formatarMoeda(descontoGeral)}
+            </Text>
+          </View>
+
+          <Text style={{ fontWeight: "bold", fontSize: 14 }}>
             Total a Pagar: {formatarMoeda(totalPagar)}
           </Text>
         </View>

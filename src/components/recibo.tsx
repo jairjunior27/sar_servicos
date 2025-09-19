@@ -8,7 +8,7 @@ import { UsuarioContext } from "@/contextProvider/userContext";
 export const Recibo = () => {
   const [msg, setMsg] = useState("");
   const recibo = useContext(ReciboContext);
-  const user = useContext(UsuarioContext)
+  const user = useContext(UsuarioContext);
   const route = useRouter();
   useEffect(() => {
     if (!msg) return;
@@ -30,58 +30,77 @@ export const Recibo = () => {
 
   return (
     <>
-     {user.user?.name === process.env.NEXT_PUBLIC_NAME ? 
-     
-     <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-slate-900 text-gray-200 
+      {user.user?.name === process.env.NEXT_PUBLIC_NAME && (
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-slate-900 text-gray-200 
       p-2 rounded"
-      >
-        {[
-          "Rádio Novo Dial",
-          "Rádio Uruguai",
-          "Rádio Sintonia",
-          "JC",
-          "Sar",
-          "Jair Junior",
-          "Cesar Augusto",
-          "Christian Cesar",
-          "Layne Coelho",
-        ].map((item, index) => (
-          <div className="flex mb-2 items-center p-2" key={index}>
-            <InputItem
-              type="radio"
-              className=""
-              onChange={() => recibo.setSelecionado(item)}
-              checked={item === recibo.selecionado}
-            />
-            <span className="ml-2 text-md md:text-lg">{item}</span>
-          </div>
-        ))}
-      </div>
-       :
-  <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-slate-900 text-gray-200 
-      p-2 rounded"
-      >
-        {[
-          "Rádio Novo Dial",
-          "Rádio Uruguai",
-          "Rádio Sintonia",
-         `${user.user?.name}`
-        ].map((item, index) => (
-          <div className="flex mb-2 items-center p-2" key={index}>
-            <InputItem
-              type="radio"
-              className=""
-              onChange={() => recibo.setSelecionado(item)}
-              checked={item === recibo.selecionado}
-            />
-            <span className="ml-2 text-md md:text-lg">{item}</span>
-          </div>
-        ))}
-      </div>
+        >
+          {[
+            "Rádio Novo Dial",
+            "Rádio Uruguai",
+            "Rádio Sintonia",
+            "JC",
+            "Sar",
+            "Jair Junior",
+            "Cesar Augusto",
+            "Christian Cesar",
+            "Layne Coelho",
+          ].map((item, index) => (
+            <div className="flex mb-2 items-center p-2" key={index}>
+              <InputItem
+                type="radio"
+                className=""
+                onChange={() => recibo.setSelecionado(item)}
+                checked={item === recibo.selecionado}
+              />
+              <span className="ml-2 text-md md:text-lg">{item}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
-    }
+      {user.user?.name === "Christian Cezar" && (
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-slate-900 text-gray-200 
+      p-2 rounded"
+        >
+          {[`${user.user.name}`].map((item, index) => (
+            <div className="flex mb-2 items-center p-2" key={index}>
+              <InputItem
+                type="radio"
+                className=""
+                onChange={() => recibo.setSelecionado(item)}
+                checked={item === recibo.selecionado}
+              />
+              <span className="ml-2 text-md md:text-lg">{item}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {user.user?.name === "Cesar Augusto" && (
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-slate-900 text-gray-200 
+      p-2 rounded"
+        >
+          {[
+            `${user.user.name}`,
+            "Rádio Novo Dial",
+            "Rádio Uruguai",
+            "Rádio Sintonia",
+          ].map((item, index) => (
+            <div className="flex mb-2 items-center p-2" key={index}>
+              <InputItem
+                type="radio"
+                className=""
+                onChange={() => recibo.setSelecionado(item)}
+                checked={item === recibo.selecionado}
+              />
+              <span className="ml-2 text-md md:text-lg">{item}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       {msg && (
         <span className="flex items-center justify-center mt-5 text-red-500">
           {msg}
