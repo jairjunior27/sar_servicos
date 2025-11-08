@@ -24,7 +24,7 @@ export const ListaSar = ({ lista, nomeLista, tipo, checkImagem }: prop) => {
             style={{ width: "100%", height: 170 }}
           />
         )}
-        {checkImagem === "Christian Cesar" && (
+        {checkImagem === "Christian Cezar" && (
           <Image
             src="/assets/christianCezar.png"
             style={{ width: "100%", height: 170 }}
