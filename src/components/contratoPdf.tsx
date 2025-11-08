@@ -27,6 +27,7 @@ export const ContratoPdf = ({ contrato }: Props) => {
     JC: "/assets/assinJc.png",
     "Jair Junior": "/assets/assinJr.png",
     "Cesar Augusto": "/assets/assinCezar.png",
+    "Christian Cesar": "/assets/assinChristian.png",
   };
 
   return (

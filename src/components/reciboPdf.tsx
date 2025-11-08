@@ -28,13 +28,13 @@ export const ReciboPdf = ({
   useEffect(() => {
     const dados = localStorage.getItem("ultimo");
     setNumeroAtual(Number(dados));
-  },[]);
+  }, []);
   return (
     <Document>
       <Page size="A4" style={{ padding: 20 }}>
         {selecionado === "Rádio Novo Dial" && (
           <Image
-            src="/assets/novoDial.png" 
+            src="/assets/novoDial.png"
             style={{ width: "100%", height: 170 }}
           />
         )}
@@ -69,8 +69,8 @@ export const ReciboPdf = ({
             style={{ width: "100%", height: 130 }}
           />
         )}
-    
-        {selecionado === "Christian Cezar" && (
+
+        {selecionado === "Christian Cesar" && (
           <Image
             src="/assets/christianCezar.png"
             style={{ width: "100%", height: 170 }}
@@ -280,6 +280,17 @@ export const ReciboPdf = ({
                     />
                     <Text style={{ marginTop: 1, fontSize: 11 }}>
                       Cezar Augusto ( Locutor e Vendedor )
+                    </Text>
+                  </>
+                )}
+                {selecionado === "Christian Cesar" && (
+                  <>
+                    <Image
+                      src="/assets/assinChristian.png"
+                      style={{ width: "100%", height: 40, borderBottom: 1 }}
+                    />
+                    <Text style={{ marginTop: 1, fontSize: 11 }}>
+                      Christian Cezar ( Locutor e Apresentador de eventos )
                     </Text>
                   </>
                 )}

@@ -71,7 +71,7 @@ export const OrcamentoPdf = ({
             style={{ width: "100%", height: 170 }}
           />
         )}
-        {logoSelecionado === "Christian Cezar" && (
+        {logoSelecionado === "Christian Cesar" && (
           <Image
             src="/assets/christianCezar.png"
             style={{ width: "100%", height: 170 }}

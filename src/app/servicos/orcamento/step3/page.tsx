@@ -202,9 +202,9 @@ export default function Page() {
             </div>
 
             <div className="bg-slate-900 text-gray-200 p-2 rounded my-10">
-              <h2 className="text-center mb-6 border-b">Forma de Pagamento</h2>
+              <h2 className="text-center mb-3 border-b-2  p-3">Forma de Pagamento</h2>
 
-              <div className="flex justify-between px-2 mb-6">
+              <div className="flex justify-between px-2 mb-6 border-b-2 pb-2">
                 {["Pix", "Dinheiro"].map((item, index) => (
                   <div className="flex" key={index}>
                     <InputItem
