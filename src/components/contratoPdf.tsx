@@ -16,7 +16,7 @@ export const ContratoPdf = ({ contrato }: Props) => {
     Sar: "/assets/sistemaSar.png",
     JC: "/assets/logojc.png",
     "Jair Junior": "/assets/jairJunior.png",
-    "Christian Cesar": "/assets/christianCezar.png",
+    "Christian Cezar": "/assets/christianCezar.png",
     "Cesar Augusto": "/assets/cesarAugusto.png",
   };
   const logoAssinMap: Record<string, string> = {
@@ -27,7 +27,7 @@ export const ContratoPdf = ({ contrato }: Props) => {
     JC: "/assets/assinJc.png",
     "Jair Junior": "/assets/assinJr.png",
     "Cesar Augusto": "/assets/assinCezar.png",
-    "Christian Cesar": "/assets/assinChristian.png",
+    "Christian Cezar": "/assets/assinChristian.png",
   };
 
   return (

@@ -70,7 +70,7 @@ export const ReciboPdf = ({
           />
         )}
 
-        {selecionado === "Christian Cesar" && (
+        {selecionado === "Christian Cezar" && (
           <Image
             src="/assets/christianCezar.png"
             style={{ width: "100%", height: 170 }}
@@ -283,7 +283,7 @@ export const ReciboPdf = ({
                     </Text>
                   </>
                 )}
-                {selecionado === "Christian Cesar" && (
+                {selecionado === "Christian Cezar" && (
                   <>
                     <Image
                       src="/assets/assinChristian.png"
