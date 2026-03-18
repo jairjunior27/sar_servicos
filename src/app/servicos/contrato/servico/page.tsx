@@ -120,7 +120,7 @@ export default function Page() {
                 value={contrato.pagamento}
               />
               <InputItem
-                className="bg-sky-200 p-3 text-gray-700 rounded mb-7"
+                className="bg-slate-900 p-3 text-gray-200 rounded mb-7"
                 onChange={(e) => contrato.setData(e.target.value)}
                 type="date"
                 value={contrato.data}
